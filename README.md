@@ -33,16 +33,18 @@ Move to that line, press `u`, then press `o`.
 
 ## Install
 
-With TPM:
+### TPM
+
+Add Spoony to your `~/.tmux.conf` plugin list:
 
 ```tmux
 set -g @plugin 'parwest/tmux-spoony'
 ```
 
-Or directly from a local checkout:
+Make sure the plugin line appears before TPM is initialized:
 
 ```tmux
-run-shell '/path/to/tmux-spoony/tmux-spoony.tmux'
+run '~/.tmux/plugins/tpm/tpm'
 ```
 
 Reload tmux config:
@@ -51,10 +53,36 @@ Reload tmux config:
 tmux source-file ~/.tmux.conf
 ```
 
-For one-off testing:
+Install the plugin with TPM:
+
+```text
+prefix + I
+```
+
+Or run TPM's installer directly:
+
+```sh
+~/.tmux/plugins/tpm/bin/install_plugins
+```
+
+Reload tmux once more after install:
+
+```sh
+tmux source-file ~/.tmux.conf
+```
+
+### Local Checkout
+
+For local testing without TPM, run the plugin file directly:
 
 ```sh
 tmux run-shell '/path/to/tmux-spoony/tmux-spoony.tmux'
+```
+
+To load a local checkout from `~/.tmux.conf`:
+
+```tmux
+run-shell '/path/to/tmux-spoony/tmux-spoony.tmux'
 ```
 
 ## Key Bindings
@@ -97,9 +125,3 @@ Development/testing system:
 - tmux `3.6a`
 - GNU Bash `5.3.9`
 - `copy-mode-vi`
-
-## Notes
-
-Spoony intentionally does not try to emulate Vim. It adds small semantic selectors on top of tmux copy mode.
-
-Path selection skips URL internals, so `p` should not select `//localhost` from `http://localhost:3000`.
