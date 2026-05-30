@@ -1,6 +1,6 @@
 # tmux-spoony
 
-![tmux-spoony demo](./assets/tmux-spoony-vid.gif)
+![tmux-spoony demo](./assets/tmuxSpoony.gif)
 
 Small tmux copy-mode helpers for grabbing useful terminal text without replacing tmux copy mode.
 
