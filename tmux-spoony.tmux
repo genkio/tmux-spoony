@@ -7,7 +7,6 @@ path_key="$(tmux show-option -gqv @spoony-path-key)"
 command_key="$(tmux show-option -gqv @spoony-command-key)"
 line_key="$(tmux show-option -gqv @spoony-line-key)"
 open_key="$(tmux show-option -gqv @spoony-open-key)"
-yank_key="$(tmux show-option -gqv @spoony-yank-key)"
 
 if [ -z "$url_key" ]; then
   url_key="u"
@@ -18,7 +17,7 @@ if [ -z "$path_key" ]; then
 fi
 
 if [ -z "$command_key" ]; then
-  command_key="m"
+  command_key="c"
 fi
 
 if [ -z "$line_key" ]; then
@@ -27,10 +26,6 @@ fi
 
 if [ -z "$open_key" ]; then
   open_key="o"
-fi
-
-if [ -z "$yank_key" ]; then
-  yank_key="y"
 fi
 
 bind_copy_mode_key() {
@@ -78,7 +73,6 @@ configure_hints() {
       hint_item "$path_key" path
       hint_item "$command_key" cmd
       hint_item "$line_key" line
-      hint_item "$yank_key" copy
       hint_item "$open_key" open
     )"
     hint_text="${hint_text% }"
@@ -93,9 +87,23 @@ configure_hints() {
   tmux set-option -gq copy-mode-position-format "#[align=right]#{@spoony-hint-text}"
 }
 
+unbind_stale_command_key() {
+  old_command_key="m"
+
+  if [ "$command_key" = "$old_command_key" ]; then
+    return
+  fi
+
+  old_binding="$(tmux list-keys -T copy-mode-vi "$old_command_key" 2>/dev/null || true)"
+  if [[ "$old_binding" == *"select-on-line.sh"* && "$old_binding" == *" command "* ]]; then
+    tmux unbind-key -T copy-mode-vi "$old_command_key"
+  fi
+}
+
 select_script="$(printf '%q' "$CURRENT_DIR/scripts/select-on-line.sh")"
 open_script="$(printf '%q' "$CURRENT_DIR/scripts/open-selection.sh")"
 
+unbind_stale_command_key
 configure_hints
 
 bind_copy_mode_key "$url_key" run-shell "bash $select_script url '#{pane_id}'"

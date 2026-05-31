@@ -141,7 +141,7 @@ case "$kind" in
     label="command"
     prompt_regex="$(tmux show-option -gqv @spoony-command-prompt-regex)"
     if [ -z "$prompt_regex" ]; then
-      prompt_regex='^.+[$#>] +'
+      prompt_regex='^> +'
     fi
 
     visible_line="$(visible_cursor_line)"

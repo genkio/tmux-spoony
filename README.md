@@ -19,7 +19,7 @@ Move to a target line with normal tmux copy-mode navigation, then press:
 ```text
 u  select URL on the cursor line
 p  select path on the cursor line
-m  select command after the prompt
+c  select command after the prompt
 x  select the whole line
 o  open the selected text
 y  yank the selected text
@@ -28,7 +28,7 @@ y  yank the selected text
 Spoony also replaces tmux's copy-mode position indicator with compact hints:
 
 ```text
-u:url p:path m:cmd x:line y:copy o:open
+u:url p:path c:cmd x:line o:open
 ```
 
 Example:
@@ -100,10 +100,9 @@ Spoony works without configuration. To override defaults, set options before loa
 ```tmux
 set -g @spoony-url-key 'u'
 set -g @spoony-path-key 'p'
-set -g @spoony-command-key 'm'
+set -g @spoony-command-key 'c'
 set -g @spoony-line-key 'x'
 set -g @spoony-open-key 'o'
-set -g @spoony-yank-key 'y'
 ```
 
 Any key can be disabled with `off`:
@@ -116,18 +115,18 @@ The hint text can also be disabled or overridden:
 
 ```tmux
 set -g @spoony-hints 'off'
-set -g @spoony-hint-format 'u:url p:path m:cmd x:line y:copy o:open'
+set -g @spoony-hint-format 'u:url p:path c:cmd x:line o:open'
 ```
 
 ## Prompt Matching
 
-The command selector uses this default prompt regex:
+The command selector defaults to a two-line zsh prompt whose command line starts with `> `:
 
 ```tmux
-set -g @spoony-command-prompt-regex '^.+[$#>] +'
+set -g @spoony-command-prompt-regex '^> +'
 ```
 
-It matches common prompts ending in `$ `, `# `, or `> `, and avoids mistaking lines like npm's `> start` output for a shell prompt. If your prompt is unusual, set a more specific regex before loading Spoony.
+This matches commands like `> command` and `>  command`. If your prompt is different, set a more specific regex before loading Spoony.
 
 ## Requirements
 
