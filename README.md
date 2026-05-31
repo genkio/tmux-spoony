@@ -25,6 +25,12 @@ o  open the selected text
 y  yank the selected text
 ```
 
+Spoony also replaces tmux's copy-mode position indicator with compact hints:
+
+```text
+u:url p:path m:cmd x:line y:copy o:open
+```
+
 Example:
 
 ```text
@@ -97,12 +103,20 @@ set -g @spoony-path-key 'p'
 set -g @spoony-command-key 'm'
 set -g @spoony-line-key 'x'
 set -g @spoony-open-key 'o'
+set -g @spoony-yank-key 'y'
 ```
 
 Any key can be disabled with `off`:
 
 ```tmux
 set -g @spoony-open-key 'off'
+```
+
+The hint text can also be disabled or overridden:
+
+```tmux
+set -g @spoony-hints 'off'
+set -g @spoony-hint-format 'u:url p:path m:cmd x:line y:copy o:open'
 ```
 
 ## Prompt Matching
