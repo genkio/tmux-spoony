@@ -109,5 +109,5 @@ configure_hints
 bind_copy_mode_key "$url_key" run-shell "bash $select_script url '#{pane_id}'"
 bind_copy_mode_key "$path_key" run-shell "bash $select_script path '#{pane_id}'"
 bind_copy_mode_key "$command_key" run-shell "bash $select_script command '#{pane_id}'"
-bind_copy_mode_key "$line_key" send-keys -X select-line
+bind_copy_mode_key "$line_key" 'send-keys -X back-to-indentation ; send-keys -X begin-selection ; send-keys -X end-of-line'
 bind_copy_mode_key "$open_key" send-keys -X copy-pipe-and-cancel "bash $open_script '#{pane_id}'"
