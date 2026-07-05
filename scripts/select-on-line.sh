@@ -137,6 +137,11 @@ case "$kind" in
 
     find_nearest_match '(~|/|\./|\.\./|[[:alnum:]_.-]+/)[^[:space:]<>"'\'']+'
     ;;
+  ip)
+    label="IP"
+    octet='(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])'
+    find_nearest_match "$octet\\.$octet\\.$octet\\.$octet"
+    ;;
   command)
     label="command"
     prompt_regex="$(tmux show-option -gqv @spoony-command-prompt-regex)"

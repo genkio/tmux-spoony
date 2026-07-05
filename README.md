@@ -4,7 +4,7 @@
 
 Small tmux copy-mode helpers for grabbing useful terminal text without replacing tmux copy mode.
 
-Spoony adds one-key selectors for URLs, paths, shell commands, and whole lines. You still navigate with normal tmux copy-mode keys.
+Spoony adds one-key selectors for URLs, paths, shell commands, IPs, and whole lines. You still navigate with normal tmux copy-mode keys.
 
 ## Usage
 
@@ -20,6 +20,7 @@ Move to a target line with normal tmux copy-mode navigation, then press:
 u  select URL on the cursor line
 p  select path on the cursor line
 c  select command after the prompt
+i  select IPv4 address on the cursor line
 x  select the whole line
 o  open the selected text
 y  yank the selected text
@@ -28,7 +29,7 @@ y  yank the selected text
 Spoony also replaces tmux's copy-mode position indicator with compact hints:
 
 ```text
-u:url p:path c:cmd x:line o:open
+u:url p:path c:cmd i:ip x:line o:open
 ```
 
 Example:
@@ -101,6 +102,7 @@ Spoony works without configuration. To override defaults, set options before loa
 set -g @spoony-url-key 'u'
 set -g @spoony-path-key 'p'
 set -g @spoony-command-key 'c'
+set -g @spoony-ip-key 'i'
 set -g @spoony-line-key 'x'
 set -g @spoony-open-key 'o'
 ```
@@ -115,7 +117,7 @@ The hint text can also be disabled or overridden:
 
 ```tmux
 set -g @spoony-hints 'off'
-set -g @spoony-hint-format 'u:url p:path c:cmd x:line o:open'
+set -g @spoony-hint-format 'u:url p:path c:cmd i:ip x:line o:open'
 ```
 
 ## Prompt Matching
